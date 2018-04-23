@@ -1,0 +1,298 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <!-- 引入样式 -->
+</head>
+
+<body>
+  <div id="app">
+    <div id="container"></div>
+  </div>
+
+  <!-- These are vendors you want to add from CDN -->
+  <script src="https://threejs.org/build/three.js"></script>
+  <script src="https://threejs.org/examples/js/libs/tween.min.js"></script>
+  <script src="https://threejs.org/examples/js/controls/TrackballControls.js"></script>
+  <script src="https://threejs.org/examples/js/renderers/CSS3DRenderer.js"></script>
+
+  <script>
+    var table = [
+      "张", "张宁宁", "1.00794", 2, 1,
+      "小", "时恒", "4.002602", 3, 1,
+      "咩", "时恒", "6.941", 4, 1,
+      "许", "时恒", "9.012182", 5, 1,
+      "小", "张宁宁", "10.811", 6, 1,
+      "仙", "时恒", "12.0107", 7, 1,
+      "杨", "时恒", "14.0067", 8, 1,
+      "小", "张宁宁", "15.9994", 11, 1,
+      "强", "时恒", "18.9984032", 12, 1,
+      "王", "张宁宁", "20.1797", 13, 1,
+      "小", "时恒", "22.98976...", 14, 1,
+      "辉", "张宁宁", "24.305", 15, 1,
+      "赵", "小仙", "26.9815386", 16, 1,
+      "小", "张宁宁", "28.0855", 17, 1,
+
+      "小", "小仙", "32.065", 7, 2,
+      "轩", "小仙", "35.453", 8, 2,
+      "时", "时恒", "39.948", 11, 2,
+      "小", "张宁宁", "39.948", 12, 2,
+
+
+      "恒", "小仙", "54.938045", 7, 3,
+      "仙", "小仙", "55.845", 8, 3,
+      "咩", "小仙", "63.546", 11, 3,
+      "庆", "电子文娱", "65.38", 12, 3,
+
+      "瑞", "电子文娱", "58.933195", 7, 4,
+      "建", "小仙", "58.6934", 8, 4,
+      "咩", "小仙", "63.546", 11, 4,
+      "仙", "小仙", "65.38", 12, 4,
+
+
+      "杨", "小仙", "87.62", 2, 5,
+      "建", "小仙", "88.90585", 3, 5,
+      "强", "小仙", "91.224", 4, 5,
+      "王", "小仙", "92.90628", 5, 5,
+      "庆", "电子文娱", "95.96", 6, 5,
+      "辉", "小仙", "(98)", 7, 5,
+      "咩", "电子文娱", "101.07", 8, 5,
+
+      "仙", "小仙", "107.8682", 11, 5,
+      "时", "小仙", "112.411", 12, 5,
+      "恒", "小仙", "114.818", 13, 5,
+      "小", "小仙", "118.71", 14, 5,
+      "仙", "小仙", "121.76", 15, 5,
+      "仙", "小仙", "127.6", 16, 5,
+      "咩", "小仙", "126.90447", 17, 5,
+
+      "瑞", "电子文娱", "132.9054", 2, 6,
+      "瑞", "电子文娱", "132.9054", 3, 6,
+      "轩", "电子文娱", "178.49", 4, 6,
+      "轩", "电子文娱", "180.94788", 5, 6,
+      "强", "电子文娱", "183.84", 6, 6,
+      "强", "电子文娱", "186.207", 7, 6,
+      "辉", "电子文娱", "190.23", 8, 6,
+
+      "辉", "电子文娱", "196.966569", 11, 6,
+      "恒", "电子文娱", "200.59", 12, 6,
+      "恒", "电子文娱", "204.3833", 13, 6,
+      "仙", "电子文娱", "207.2", 14, 6,
+      "咩", "电子文娱", "208.9804", 15, 6,
+      "咩", "电子文娱", "(209)", 16, 6,
+      "时", "电子文娱", "(210)", 17, 6,
+
+
+      "开", "技术研发", "138.90547", 2, 7,
+      "黑", "技术研发", "140.116", 3, 7,
+      "求", "技术研发", "(272)", 16, 7,
+      "带", "业务研发", "(270)", 17, 7,
+
+      "大", "技术研发", "138.90547", 2, 8,
+      "吉", "电子文娱", "140.116", 3, 8,
+      "大", "电子文娱", "(272)", 16, 8,
+      "利", "电子文娱", "(270)", 17, 8,
+
+      "今", "技术研发", "138.90547", 2, 9,
+      "晚", "业务研发", "140.116", 3, 9,
+      "吃", "技术研发", "157.25", 16, 9,
+      "鸡", "业务研发", "158.92535", 17, 9,
+
+
+      "发", "业务研发", "138.90547", 2, 10,
+      "光", "业务研发", "140.116", 3, 10,
+      "的", "业务研发", "(227)", 4, 10,
+      "一", "电子文娱", "232.03806", 5, 10,
+      "个", "电子文娱", "231.0588", 6, 10,
+      "就", "电子文娱", "238.02891", 7, 10,
+      "够", "电子文娱", "(237)", 8, 10,
+
+      "快", "Curium", "(247)", 11, 10,
+      "来", "业务研发", "(247)", 12, 10,
+      "一", "业务研发", "(251)", 13, 10,
+      "起", "电子文娱", "(252)", 14, 10,
+      "玩", "电子文娱", "(257)", 15, 10,
+      "刷", "电子文娱", "(258)", 16, 10,
+      "吧", "业务研发", "(259)", 17, 10
+    ];
+
+    var camera, scene, renderer;
+    var controls;
+    var objects = [];
+    var targets = {
+      table: [],
+      sphere: [],
+      helix: [],
+      grid: []
+    };
+
+    function init() {
+      camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
+      camera.position.z = 3000;
+      scene = new THREE.Scene();
+
+      // init
+      function __init(i) {
+        var element = document.createElement('div');
+        element.className = 'element';
+        element.style.backgroundColor = 'rgba(59,89,235,' + (Math.random() * 0.5 + 0.25) + ')';
+        var number = document.createElement('div');
+        number.className = 'number';
+        number.textContent = (i / 5) + 1;
+        element.appendChild(number);
+        var symbol = document.createElement('div');
+        symbol.className = 'symbol';
+        symbol.textContent = table[i];
+        element.appendChild(symbol);
+        var details = document.createElement('div');
+        details.className = 'details';
+        details.innerHTML = table[i + 1] + '<br>' + table[i + 2];
+        element.appendChild(details);
+        var object = new THREE.CSS3DObject(element);
+        object.position.x = Math.random() * 4000 - 2000;
+        object.position.y = Math.random() * 4000 - 2000;
+        object.position.z = Math.random() * 4000 - 2000;
+        scene.add(object);
+        objects.push(object);
+      }
+
+      table.forEach((item, index) => {
+        if (index % 5 === 0) {
+          __init(index)
+        }
+      })
+
+
+      // table
+      for (var i = 0; i < table.length; i += 5) {
+        //
+        var object = new THREE.Object3D();
+        object.position.x = (table[i + 3] * 140) - 1330;
+        object.position.y = -(table[i + 4] * 180) + 990;
+        targets.table.push(object);
+      }
+      // sphere
+      var vector = new THREE.Vector3();
+      var spherical = new THREE.Spherical();
+      for (var i = 0, l = objects.length; i < l; i++) {
+        var phi = Math.acos(-1 + (2 * i) / l);
+        var theta = Math.sqrt(l * Math.PI) * phi;
+        var object = new THREE.Object3D();
+        spherical.set(800, phi, theta);
+        object.position.setFromSpherical(spherical);
+        vector.copy(object.position).multiplyScalar(2);
+        object.lookAt(vector);
+        targets.sphere.push(object);
+      }
+      // helix
+      var vector = new THREE.Vector3();
+      var cylindrical = new THREE.Cylindrical();
+      for (var i = 0, l = objects.length; i < l; i++) {
+        var theta = i * 0.175 + Math.PI;
+        var y = -(i * 8) + 450;
+        var object = new THREE.Object3D();
+        cylindrical.set(900, theta, y);
+        object.position.setFromCylindrical(cylindrical);
+        vector.x = object.position.x * 2;
+        vector.y = object.position.y;
+        vector.z = object.position.z * 2;
+        object.lookAt(vector);
+        targets.helix.push(object);
+      }
+      // grid
+      for (var i = 0; i < objects.length; i++) {
+        var object = new THREE.Object3D();
+        object.position.x = ((i % 5) * 400) - 800;
+        object.position.y = (-(Math.floor(i / 5) % 5) * 400) + 800;
+        object.position.z = (Math.floor(i / 25)) * 1000 - 2000;
+        targets.grid.push(object);
+      }
+      //
+      renderer = new THREE.CSS3DRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.getElementById('container').appendChild(renderer.domElement);
+      //
+      controls = new THREE.TrackballControls(camera, renderer.domElement);
+      controls.rotateSpeed = 0.5;
+      controls.minDistance = 500;
+      controls.maxDistance = 6000;
+      controls.addEventListener('change', render);
+
+      transform(targets.table, 2000);
+      //
+      window.addEventListener('resize', onWindowResize, false);
+    }
+
+    function transform(targets, duration) {
+      TWEEN.removeAll();
+      for (var i = 0; i < objects.length; i++) {
+        var object = objects[i];
+        var target = targets[i];
+        new TWEEN.Tween(object.position)
+          .to({
+            x: target.position.x,
+            y: target.position.y,
+            z: target.position.z
+          }, Math.random() * duration + duration)
+          .easing(TWEEN.Easing.Exponential.InOut)
+          .start();
+        new TWEEN.Tween(object.rotation)
+          .to({
+            x: target.rotation.x,
+            y: target.rotation.y,
+            z: target.rotation.z
+          }, Math.random() * duration + duration)
+          .easing(TWEEN.Easing.Exponential.InOut)
+          .start();
+      }
+      new TWEEN.Tween(this)
+        .to({}, duration * 2)
+        .onUpdate(render)
+        .start();
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      render();
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      TWEEN.update();
+      controls.update();
+    }
+
+    function render() {
+      renderer.render(scene, camera);
+    }
+
+    function cameraFun() {
+      requestAnimationFrame(cameraFun);
+      camera.translateX(10)
+    }
+
+    function userAnimate() {
+      let _arr = ['sphere', 'grid', 'helix', 'table'],
+        i = 0
+
+      setInterval(() => {
+        transform(targets[_arr[i++ % 4]], 2000);
+      }, 10000)
+    }
+  </script>
+
+  <script>
+    init()
+    animate()
+    camera.translateY(50)
+
+    setTimeout(() => cameraFun(), 3000)
+    userAnimate()
+  </script>
+</body>
+
+</html>
