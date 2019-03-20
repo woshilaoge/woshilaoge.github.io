@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="expires" content="0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+
+    <script src="https://cdn.bootcss.com/animejs/1.1.1/anime.min.js"></script>
+    <style>
+      body {
+        /* background-color: black; */
+        text-align: center;
+      }
+      img {
+        width: 100px;
+      }
+      svg {
+        /* width: 512px; */
+        /* height: 224px; */
+      }
+      section {
+        position: relative;
+        width: 256px;
+        margin: 0 auto;
+      }
+      .green {
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        width: 20px;
+        height: 20px;
+        /* background-color: green; */
+      }
+      .green img {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <article>
+        <svg width="256" height="112" viewBox="0 0 256 112">
+          <path
+            id="path"
+            fill="none"
+            stroke="#000"
+            d="M8,56 C8,33.90861 25.90861,16 48,16 C70.09139,16 88,33.90861 88,56 C88,78.09139 105.90861,92 128,92 C150.09139,92 160,72 160,56 C160,40 148,24 128,24 C108,24 96,40 96,56 C96,72 105.90861,92 128,92 C154,93 168,78 168,56 C168,33.90861 185.90861,16 208,16 C230.09139,16 248,33.90861 248,56 C248,78.09139 230.09139,96 208,96 L48,96 C25.90861,96 8,78.09139 8,56 Z"
+          />
+        </svg>
+        <div class="green" id="move">
+          <img src="https://img.icons8.com/metro/26/000000/cycling-road.png" />
+        </div>
+      </article>
+      <footer>
+        <span>Made with</span> <a href="http://anime-js.com">anime.js</a>
+      </footer>
+      <a class="logo" href="http://anime-js.com">
+        <img
+          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1137/anime-logo.png"
+        />
+      </a>
+    </section>
+    <script>
+      var path = anime.path('path')
+
+      anime({
+        targets: '#move',
+        translateX: path,
+        translateY: path,
+        rotate: path,
+        duration: 10000,
+        loop: true,
+        easing: 'linear'
+      })
+
+      anime({
+        targets: '#path',
+        opacity: 0,
+        duration: 600000,
+        loop: true,
+        direction: 'alternate',
+        easing: 'easeInOutExpo'
+      })
+    </script>
+  </body>
+</html>
