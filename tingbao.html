@@ -12,18 +12,25 @@
       body {
         /* background-color: black; */
         text-align: center;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
       }
       img {
         width: 100px;
       }
       svg {
-        /* width: 512px; */
+        /* width: 100%; */
         /* height: 224px; */
       }
       section {
         position: relative;
+        /* width: 100%; */
         width: 501px;
         margin: 0 auto;
+        overflow: hidden;
+        transform: scale(0.8);
+        margin-left: -40px;
       }
       .green {
         position: absolute;
@@ -36,12 +43,18 @@
       .green img {
         width: 100%;
       }
+      footer {
+        position: fixed;
+        bottom: 40px;
+        text-align: center;
+        width: 100%;
+      }
     </style>
   </head>
   <body>
     <section>
       <article>
-        <svg width="501px" height="357px" viewBox="0 0 501 357">
+        <svg viewBox="0 0 501 357">
           <defs></defs>
           <g
             id="Page-1"
@@ -62,11 +75,10 @@
           <img src="https://img.icons8.com/metro/26/000000/cycling-road.png" />
         </div>
       </article>
-      <footer>
-        <h4>Power by animejs to TingBao</h4>
-        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1498625023&auto=1&height=66"></iframe>
-      </footer>
     </section>
+    <footer>
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1498625023&auto=1&height=66"></iframe>
+    </footer>
     <script>
       var path = anime.path('path')
 
